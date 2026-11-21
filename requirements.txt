@@ -1,0 +1,3 @@
+# Initial lightweight data-preparation stage uses Python standard library only.
+# Training, evaluation, and Streamlit dependencies will be added with pinned
+# versions after the model stack is chosen and tested.
