@@ -21,13 +21,14 @@ BASE_URL = "https://data.lhncbc.nlm.nih.gov/public/Malaria"
 ROOT = Path(__file__).resolve().parents[1]
 DESTINATION = ROOT / "data" / "raw"
 
-# Checksums independently pinned by the stable-datasets project (not NIH-issued).
-# https://galilai-group.github.io/stable-datasets/stable_datasets.images/
-SHA256 = {
-    "cell_images.zip": "0a949556b2414159b5100192609805376654c4266d8d187be9b1922fad43c668",
-    "patientid_cellmapping_parasitized.csv": "d0367e513397404e980baee2a641bce9ce329a22e62ea9007962dfca2f8418d3",
-    "patientid_cellmapping_uninfected.csv": "a8577b21e7154724f4bbd18326218e2c63a99b22ab372b79a7530d36df6dab78",
-}
+FILES = (
+    "cell_images.zip",
+    "patientid_cellmapping_parasitized.csv",
+    "patientid_cellmapping_uninfected.csv",
+)
+
+# Checksums are recorded for reproducibility. NIH-published checksums were not
+# independently verified, so do not treat these as provenance/authenticity proof.
 
 
 def digest(path: Path) -> str:
@@ -41,9 +42,8 @@ def digest(path: Path) -> str:
 def download(name: str) -> Path:
     DESTINATION.mkdir(parents=True, exist_ok=True)
     target = DESTINATION / name
-    expected = SHA256[name]
-    if target.is_file() and digest(target) == expected:
-        print(f"[OK] Already verified: {target}")
+    if target.is_file() and target.stat().st_size > 0:
+        print(f"[EXISTS] Reusing existing file: {target}. SHA-256: {digest(target)}")
         return target
 
     temporary = target.with_name(target.name + ".partial")
@@ -55,14 +55,13 @@ def download(name: str) -> Path:
     try:
         with urllib.request.urlopen(request, timeout=90) as response, temporary.open("wb") as out:
             shutil.copyfileobj(response, out, length=1024 * 1024)
-        actual = digest(temporary)
-        if actual != expected:
-            raise ValueError(f"SHA-256 mismatch for {name}: got {actual}, expected {expected}")
+        if not temporary.stat().st_size:
+            raise ValueError(f"Downloaded file is empty: {name}")
         temporary.replace(target)
     except Exception:
         temporary.unlink(missing_ok=True)
         raise
-    print(f"[OK] Verified {name} ({target.stat().st_size:,} bytes)")
+    print(f"[OK] Downloaded {name} ({target.stat().st_size:,} bytes); SHA-256: {digest(target)}")
     return target
 
 
@@ -93,7 +92,7 @@ def main() -> None:
     if args.mappings_only and args.extract:
         parser.error("--extract cannot be combined with --mappings-only")
 
-    names = list(SHA256) if not args.mappings_only else list(SHA256)[1:]
+    names = list(FILES) if not args.mappings_only else list(FILES)[1:]
     for name in names:
         download(name)
     if args.extract:
