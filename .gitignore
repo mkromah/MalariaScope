@@ -221,3 +221,11 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# MalariaScope: raw patient mappings, microscopy images, and model artifacts
+/data/
+/models/
+/outputs/
+*.pt
+*.pth
+*.ckpt
