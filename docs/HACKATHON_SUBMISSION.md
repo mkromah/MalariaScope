@@ -29,7 +29,7 @@ Potential beneficiaries are researchers and laboratory educators investigating i
 - A selected subset's conditional accuracy cannot be interpreted as overall clinical sensitivity.
 - No human review experiment, cost study, calibration study or prospective clinical assessment.
 - Patient-correlated images mean naïve image-level confidence intervals would be misleading.
-- Software environment and private split manifest are still awaiting a complete reproducibility archive.
+- The uploaded manifest was audited for patient overlap and counts, and key Kaggle package versions were captured. Independent end-to-end retraining, GPU hardware provenance, and external-site evaluation remain outstanding.
 
 ## If we had another month
 
@@ -49,8 +49,8 @@ Test an independent microscopy dataset, quantify patient-cluster uncertainty and
 - [x] Create patient-disjoint train/validation/test partition.
 - [x] Train baseline and MobileNet; choose one validation checkpoint.
 - [x] Report held-out test metrics and an uncertainty-based referral experiment.
-- [x] Publish aggregate results and methodology in GitHub.
-- [ ] Preserve and verify exact environment and split records from complete ten-file backup.
+- [x] Publish aggregate results, split audit, and methodology in GitHub.
+- [x] Verify separately uploaded private split manifest, aggregate summary, and Kaggle package versions; publish non-identifying audit.
 - [ ] Publish the model checkpoint through a suitable mechanism.
 - [ ] Deploy and test public Streamlit demo.
 - [ ] Record and publish short walkthrough video.
