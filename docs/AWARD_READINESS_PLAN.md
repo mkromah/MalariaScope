@@ -2,9 +2,9 @@
 
 **Competition:** AI for Medicine hackathon (Open Health AI Collective), submission deadline 2026-12-04 23:45 EST / 2026-12-05 07:45 Türkiye time.
 
-**Purpose:** Enter all six award categories competitively, prioritizing a credible Grand Prize submission and the strongest existing research/reproducibility work. Award outcomes cannot be promised.
+**My aim:** Submit MalariaScope in all six award categories, with particular attention to the Grand Prize and Research & Reproducibility. I cannot predict how the judges will rank it.
 
-**Current snapshot:** `archive/hackathon-evaluated-2026-11-22` points to commit `80bfe64ce3f19e6d5c26be1395a3f94367e3b9c7`; it preserves source code and public aggregate results (not private model weights or patient-level manifest). All improvements go to `improvements/award-readiness` first and require tests before merging into `main`.
+**Saved version:** I preserved the research code and public results on `archive/hackathon-evaluated-2026-11-22` at commit `80bfe64ce3f19e6d5c26be1395a3f94367e3b9c7`; it preserves source code and public aggregate results (not private model weights or patient-level manifest). I develop new features on `improvements/award-readiness` and test them before considering changes to `main`.
 
 ## Non-negotiable protections
 
@@ -65,4 +65,4 @@ Judging criteria: Technical Depth 25%; Rigor & Reproducibility 25%; Clinical Rel
 
 Post-hackathon external validation, new models, and paper writing belong to a separate research track. They must not silently alter the submitted hackathon model or re-use the existing held-out test set for optimization.
 
-**Official rules:** https://ai-for-medicine.devpost.com/ (recheck at submission).
+**Rules:** https://ai-for-medicine.devpost.com/ — I will check the rules again before submitting.
