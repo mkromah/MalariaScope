@@ -27,23 +27,55 @@ MAPPING = {
 
 
 def read_mapping(file: Path) -> dict[str, str]:
-    """NIH mapping files are headerless: each row starts with patient ID,
-    then contains a padded sequence of cell filenames."""
+    """Load NIH patient mapping in long (one cell/row) or wide CSV format.
+
+    Recognizes optional header columns and strips BOM/extra empty fields.
+    Every image filename must map to exactly one patient ID.
+    """
     lookup: dict[str, str] = {}
     with file.open(newline="", encoding="utf-8-sig") as stream:
-        for row_number, row in enumerate(csv.reader(stream), 1):
-            if not row or not row[0].strip():
-                continue
-            patient = row[0].strip()
-            for item in row[1:]:
-                name = Path(item.strip().replace("\\", "/")).name
+        reader = csv.reader(stream)
+        first = next(reader, None)
+        if first is None:
+            raise ValueError(f"Empty CSV file: {file}")
+        first = [value.strip() for value in first]
+        norm = [name.lower().replace(" ", "").replace("_", "") for name in first]
+        has_header = any(
+            value in ("patientid", "patient", "cellname", "filename",
+                      "imagename", "image", "cellimage") for value in norm
+        )
+        patient_idx = next((i for i, value in enumerate(norm)
+                            if value in ("patientid", "patient")), 0)
+        image_indices = [i for i, value in enumerate(norm)
+                         if value in ("cellname", "filename", "imagename",
+                                      "image", "cellimage")]
+        def add(row: list[str], line: int) -> None:
+            if len(row) <= patient_idx:
+                return
+            patient = row[patient_idx].strip()
+            if not patient:
+                return
+            entries = (
+                [row[i] for i in image_indices if i < len(row)]
+                if has_header and image_indices
+                else [value for i, value in enumerate(row) if i != patient_idx]
+            )
+            for item in entries:
+                name = Path(item.strip().replace("\\\\", "/")).name
                 if not name.lower().endswith(".png"):
                     continue
                 if name in lookup and lookup[name] != patient:
-                    raise ValueError(f"{file}: image {name} maps to multiple patients")
+                    raise ValueError(
+                        f"{file}:{line}: {name} maps to multiple patients"
+                    )
                 lookup[name] = patient
+
+        if not has_header:
+            add(first, 1)
+        for line, row in enumerate(reader, 2):
+            add(row, line)
     if not lookup:
-        raise ValueError(f"No mapping records parsed from {file}")
+        raise ValueError(f"No PNG filenames parsed from {file}")
     return lookup
 
 
