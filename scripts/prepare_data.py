@@ -15,6 +15,7 @@ import collections
 import csv
 import json
 import random
+import re
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -61,14 +62,16 @@ def read_mapping(file: Path) -> dict[str, str]:
                 else [value for i, value in enumerate(row) if i != patient_idx]
             )
             for item in entries:
-                name = Path(item.strip().replace("\\\\", "/")).name
-                if not name.lower().endswith(".png"):
-                    continue
-                if name in lookup and lookup[name] != patient:
-                    raise ValueError(
-                        f"{file}:{line}: {name} maps to multiple patients"
-                    )
-                lookup[name] = patient
+                # NIH stores filenames as a printed Python list, e.g.
+                # "['cell_1.png', 'cell_2.png']". Extract names robustly
+                # whether CSV splits the list across columns or not.
+                for match in re.findall(r"""[^,\\s\\[\\]\\'"]+\\.png""", item, re.I):
+                    name = Path(match.replace("\\\\", "/")).name
+                    if name in lookup and lookup[name] != patient:
+                        raise ValueError(
+                            f"{file}:{line}: {name} maps to multiple patients"
+                        )
+                    lookup[name] = patient
 
         if not has_header:
             add(first, 1)
