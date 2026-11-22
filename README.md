@@ -9,12 +9,12 @@ MalariaScope is an educational research prototype for the [AI for Medicine hacka
 ## Project status — 22 November 2026
 
 - [x] Initialize public repository and dataset-download utility
-- [ ] Verify downloaded dataset, patient mapping, and image integrity
-- [ ] Create a reproducible **patient-disjoint** train / validation / test split
-- [ ] Train and compare baseline and transfer-learning models
-- [ ] Set review thresholds on validation data only
-- [ ] Evaluate once on untouched patient-held-out test data
-- [ ] Add Streamlit demo and a short demonstration video
+- [ ] Download and verify NIH dataset, mapping, and image integrity
+- [x] Implement patient-disjoint train / validation / test split with automated checks (not yet run on NIH data)
+- [x] Implement MobileNetV3 training and validation selection (not trained yet)\n- [ ] Train and compare with a baseline
+- [x] Implement review threshold selection on validation data only (not executed yet)
+- [x] Implement held-out test evaluation script (not executed yet)
+- [x] Add guarded Streamlit demo scaffold (no trained model yet)\n- [ ] Produce evaluated weights, deploy the demo and record video
 
 **No trained model or evaluation results are claimed at this stage.**
 
@@ -64,7 +64,7 @@ MalariaScope/
 ## Attribution
 
 - Dataset: U.S. National Library of Medicine malaria image research resource. Details and original study links: https://lhncbc.nlm.nih.gov/LHC-research/LHC-projects/image-processing/malaria-datasheet.html
-- Frameworks and pretrained model weights (to be used): PyTorch/torchvision; exact versions and citations will be added once selected.
+- Frameworks and pretrained model weights: PyTorch and torchvision MobileNetV3-Small; exact training versions and weights provenance will be recorded once training is run.
 - Development assistance: OpenAI ChatGPT was used to assist with planning, code drafting, and documentation. All generated code requires review and testing before results are reported.
 
 License for original project code: **to be selected after reviewing dependencies and intended reuse terms**.
