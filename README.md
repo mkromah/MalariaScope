@@ -11,7 +11,7 @@ MalariaScope is an educational research prototype for the [AI for Medicine hacka
 - [x] Initialize public repository and dataset-download utility
 - [ ] Download and verify NIH dataset, mapping, and image integrity
 - [x] Implement patient-disjoint train / validation / test split with automated checks (not yet run on NIH data)
-- [x] Implement MobileNetV3 training and validation selection (not trained yet)\n- [ ] Train and compare with a baseline
+- [x] Implement MobileNetV3 training and validation selection (not trained yet)\n- [x] Implement a logistic regression baseline (not yet executed)\n- [ ] Train baseline and CNN, compare results on validation
 - [x] Implement review threshold selection on validation data only (not executed yet)
 - [x] Implement held-out test evaluation script (not executed yet)
 - [x] Add guarded Streamlit demo scaffold (no trained model yet)\n- [ ] Produce evaluated weights, deploy the demo and record video
@@ -68,3 +68,10 @@ MalariaScope/
 - Development assistance: OpenAI ChatGPT was used to assist with planning, code drafting, and documentation. All generated code requires review and testing before results are reported.
 
 License for original project code: **to be selected after reviewing dependencies and intended reuse terms**.
+
+## Working in Kaggle and submitting
+
+- [Kaggle GPU run guide](docs/KAGGLE_RUN_GUIDE.md)
+- [Hackathon submission draft and safeguards](docs/HACKATHON_SUBMISSION.md)
+
+**Current status:** All pipeline scripts are committed, but the real NIH dataset has not been downloaded or processed in a GPU environment by this assistant; automated tests and model outcomes are not yet verified. No model performance is claimed.
