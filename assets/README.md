@@ -1,11 +1,13 @@
 # MalariaScope visual assets
 
-This directory contains original project branding assets for the public Streamlit research demo and presentation.
+I keep MalariaScope's logo and background artwork here for the Streamlit demo, presentation, and repository.
 
-Upload:
-- `MalariaScope_banner.jpg`: a dark plum / coral biotech hero banner, intended to be **shown as a header image**, not repeated beneath text inputs.
-- `MalariaScope_logo.png`: a transparent microscope / infected-cell logo with the MalariaScope wordmark.
+Current app assets:
+- `MalariaScope_banner.svg`: a lightweight purple-and-coral background for the app header.
+- `MalariaScope_logo.svg`: a scalable microscope and cell mark with the MalariaScope name.
 
-**Deployment:** The Streamlit app will reference these files with relative paths under `assets/`. All design and interface work belongs on the `improvements/award-readiness` branch first. The trained checkpoint, validation-chosen review threshold, and held-out evaluation are unchanged by branding.
+I also made PNG and JPG versions for use in presentations.
 
-The microscopic elements in the artwork are illustrative, not actual NIH microscopy results. The assets were created using OpenAI image generation tools, with subsequent format optimization and cropping, and must not be presented as clinical microscopy evidence.
+**Deployment:** I reference these files from the app using relative paths under `assets/`. I keep interface changes on the `improvements/award-readiness` branch. The branding does not change the trained model, review threshold, or test results.
+
+The microscope and blood-cell artwork is illustrative, not real NIH microscopy data. I used OpenAI image-generation tools to develop the original artwork and built lightweight SVG versions for GitHub. I do not use the illustrations as clinical or experimental evidence.
