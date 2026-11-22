@@ -71,7 +71,7 @@ License for original project code: **to be selected after reviewing dependencies
 
 ## Working in Kaggle and submitting
 
-- [Kaggle GPU run guide](docs/KAGGLE_RUN_GUIDE.md)
+- [Ready-to-run Kaggle notebook](notebooks/MalariaScope_Kaggle.ipynb)\n- [Kaggle GPU run guide](docs/KAGGLE_RUN_GUIDE.md)
 - [Hackathon submission draft and safeguards](docs/HACKATHON_SUBMISSION.md)
 
 **Current status:** All pipeline scripts are committed, but the real NIH dataset has not been downloaded or processed in a GPU environment by this assistant; automated tests and model outcomes are not yet verified. No model performance is claimed.
