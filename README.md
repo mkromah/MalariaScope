@@ -2,7 +2,7 @@
 
 **AI-assisted malaria blood-cell classification with uncertainty-aware review**
 
-[AI for Medicine hackathon](https://ai-for-medicine.devpost.com/) · [Results](docs/RESULTS.md) · [Kaggle run guide](docs/KAGGLE_RUN_GUIDE.md) · [Submission draft](docs/HACKATHON_SUBMISSION.md)
+[AI for Medicine hackathon](https://ai-for-medicine.devpost.com/) · [Results](docs/RESULTS.md) · [Reproducibility audit](docs/REPRODUCIBILITY.md) · [Kaggle run guide](docs/KAGGLE_RUN_GUIDE.md) · [Submission draft](docs/HACKATHON_SUBMISSION.md)
 
 > **Research prototype — not a clinical diagnostic tool.** MalariaScope classifies cropped individual blood-cell images, not patient blood smears or patient infection status. A negative model output must not be used to rule out malaria.
 
@@ -54,7 +54,7 @@ python scripts/evaluate.py
 
 See the [Kaggle notebook](notebooks/MalariaScope_Kaggle.ipynb) and [run guide](docs/KAGGLE_RUN_GUIDE.md) for staged execution. The model uses aspect-ratio-preserving 224 × 224 padding with black borders, ImageNet normalization, and random horizontal/vertical flips on training images only.
 
-Outputs generated locally under `outputs/` include model weights, validation selection, and test metrics. The aggregate result JSON files in `results/` were checked against the uploaded archive. **Exact package versions and patient-level split manifest are still missing from the uploaded archives** and therefore cannot yet be independently reproduced byte-for-byte. The model weights are preserved in the user's local backup but have not been published here.
+Outputs generated locally under `outputs/` include model weights, validation selection, and test metrics. The aggregate result JSON files in `results/` were checked against the uploaded archive. **The user subsequently uploaded the previously missing records separately.** The private patient-level manifest was audited (27,558 unique image paths; no patient overlap); public [aggregate split summary](results/split_summary.json), [audit record](results/data_audit.json), and [verified software versions](docs/REPRODUCIBILITY.md) are now published. The complete environment snapshot and patient-level manifest remain private, and an independent rerun has not yet been performed. The model weights are preserved in the user's local backup but have not been published here.
 
 ## Demo
 
@@ -79,9 +79,10 @@ The interface intentionally stops if those files are absent.
 │   ├── train.py
 │   └── evaluate.py
 ├── tests/test_prepare_data.py
-├── results/                  # aggregate, non-patient-level metrics
+├── results/                  # aggregate metrics and deidentified split audit
 └── docs/
     ├── RESULTS.md
+    ├── REPRODUCIBILITY.md
     ├── KAGGLE_RUN_GUIDE.md
     └── HACKATHON_SUBMISSION.md
 ```
