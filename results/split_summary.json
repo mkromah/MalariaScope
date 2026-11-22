@@ -1,0 +1,25 @@
+{
+  "seed": 42,
+  "total_images": 27558,
+  "total_patients": 201,
+  "splits": {
+    "train": {
+      "images": 19294,
+      "patients": 139,
+      "infected_cells": 9749,
+      "uninfected_cells": 9545
+    },
+    "val": {
+      "images": 4459,
+      "patients": 31,
+      "infected_cells": 2354,
+      "uninfected_cells": 2105
+    },
+    "test": {
+      "images": 3805,
+      "patients": 31,
+      "infected_cells": 1676,
+      "uninfected_cells": 2129
+    }
+  }
+}
