@@ -1,6 +1,6 @@
 # Running MalariaScope on Kaggle (GPU)
 
-The GitHub repo is the **source of code**. Kaggle is the **compute environment**. The full NIH archive is downloaded to the Kaggle working directory and is not committed to GitHub.
+I keep the code in GitHub and run data processing and training in Kaggle. I download the NIH dataset into the Kaggle working directory and do not commit it to GitHub.
 
 1. Open a new Kaggle notebook, enable **Internet** (if available) and the GPU accelerator.
 2. In a notebook cell run:
@@ -22,8 +22,8 @@ The GitHub repo is the **source of code**. Kaggle is the **compute environment**
 !python scripts/evaluate.py
 ```
 
-5. Save `outputs/baseline_validation.json`, `outputs/selection.json`, `outputs/test_metrics.json`, and `outputs/model_best.pt` as Kaggle notebook output artifacts. Record package versions (`!python -m pip freeze`). **The raw NIH dataset and model weights are not uploaded automatically to GitHub.** Do not report results until you have read the files and validated the full run.
+5. I save `outputs/baseline_validation.json`, `outputs/selection.json`, `outputs/test_metrics.json`, and `outputs/model_best.pt` as Kaggle notebook outputs. Record package versions (`!python -m pip freeze`). **The raw NIH dataset stays out of GitHub. I publish model weights only in the demonstration branch where needed.** Do not report results until you have read the files and validated the full run.
 
-Kaggle may interrupt notebooks or change quotas. GPU, Internet and dataset downloads must be available in the actual Kaggle session. If `download_data.py` fails, inspect the NIH URL and Kaggle network settings rather than swapping datasets without documenting the change.
+Kaggle can interrupt a notebook or change compute quotas. GPU, Internet and dataset downloads must be available in the actual Kaggle session. If `download_data.py` fails, inspect the NIH URL and Kaggle network settings rather than swapping datasets without documenting the change.
 
 Deployment requires model weights distributed through a separate, reliable and properly licensed mechanism, or a repo release if size and terms permit. The current Streamlit app intentionally declines to predict until its weights exist.
