@@ -83,9 +83,9 @@ Aggregate results (without patient identifiers) are published in `results/baseli
 
 The user also generated PNG plots in Kaggle: held-out confusion matrix, uncertainty-based outcomes, and review outcomes per class. These were inspected against the supplied counts but are not yet stored as binary assets in this repository. The local checkpoint and figures remain in the user's backup.
 
-**Outstanding before a fully reproducible award submission:** upload the version containing `split_summary.json`, `pip-freeze.txt` and the private `split_manifest.csv` for verification; decide how to distribute the trained checkpoint; publish non-identifying split summary and exact package versions; run end-to-end reproduction or document hardware/environment deviations; and deploy/test a public app.
+**Reproducibility update (22 November 2026):** The author subsequently uploaded all three previously missing records separately. The private `split_manifest.csv` was audited: 27,558 unique image paths, 201 patients, no missing values, zero patient overlap among partitions, and exact agreement with `split_summary.json`. Non-identifying counts and audit checks are now published in [`results/split_summary.json`](../results/split_summary.json) and [`results/data_audit.json`](../results/data_audit.json); core software versions are in [`docs/REPRODUCIBILITY.md`](REPRODUCIBILITY.md). The manifest, which contains patient-to-cell associations, **has not been uploaded publicly**. The full 937-package environment snapshot is retained privately; the repository documents key versions and its SHA-256.
 
-The manifest includes patient-to-cell associations. It was not included in the received ZIPs and should **not** be pushed publicly without reviewing data licensing and identifier risks. No external laboratory validation or patient-cluster confidence intervals have been calculated.
+**Still outstanding:** decide how to distribute the trained checkpoint; verify a fresh end-to-end reproduction or document platform/hardware deviations; and deploy/test a public demo. No external laboratory validation or patient-cluster confidence intervals have been calculated.
 
 ## 6. Limitations and potential harms
 
