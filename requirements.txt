@@ -1,3 +1,10 @@
-# Initial lightweight data-preparation stage uses Python standard library only.
-# Training, evaluation, and Streamlit dependencies will be added with pinned
-# versions after the model stack is chosen and tested.
+# Data preparation uses only the Python standard library.
+# For model training, evaluation, and the demo:
+numpy>=1.26,<3
+pillow>=10,<12
+scikit-learn>=1.4,<2
+torch>=2.3,<3
+torchvision>=0.18,<1
+streamlit>=1.36,<2
+# Freeze exact package versions in a successful training environment
+# and record them alongside the final model checkpoint.
