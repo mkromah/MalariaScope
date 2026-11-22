@@ -16,6 +16,19 @@ class MappingTests(unittest.TestCase):
             p.write_text("P1,a.png,b.png,\nP2,c.png,\n", encoding="utf-8")
             self.assertEqual(read_mapping(p), {"a.png": "P1", "b.png": "P1", "c.png": "P2"})
 
+    def test_nih_list_formatted_mapping(self):
+        with tempfile.TemporaryDirectory() as td:
+            p = Path(td) / "mapping.csv"
+            p.write_text(
+                'P1,"[\'A_cell_1.png\', \'A_cell_2.png\']"\n'
+                'P2,"[\'B_cell_1.png\']"\n',
+                encoding="utf-8",
+            )
+            self.assertEqual(
+                read_mapping(p),
+                {"A_cell_1.png": "P1", "A_cell_2.png": "P1", "B_cell_1.png": "P2"},
+            )
+
     def test_headered_long_mapping(self):
         with tempfile.TemporaryDirectory() as td:
             p = Path(td) / "mapping.csv"
