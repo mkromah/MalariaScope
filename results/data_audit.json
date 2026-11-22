@@ -1,0 +1,38 @@
+{
+  "audit_date": "2026-11-22",
+  "source": "split_manifest.csv and split_summary.json uploaded by the author; checked independently by tabulating CSV records",
+  "data_scope": "NIH/NLM cropped malaria cell images",
+  "validation_checks": {
+    "manifest_rows": 27558,
+    "unique_image_paths": 27558,
+    "duplicate_image_paths": 0,
+    "missing_values_in_path_label_patient_id_split": 0,
+    "unique_patient_ids": 201,
+    "allowed_labels": [
+      0,
+      1
+    ],
+    "allowed_splits": [
+      "train",
+      "val",
+      "test"
+    ],
+    "patients_present_in_multiple_splits": 0,
+    "pairwise_patient_overlap": {
+      "train_val": 0,
+      "train_test": 0,
+      "val_test": 0
+    },
+    "summary_counts_match_manifest": true,
+    "split_patient_counts_match_summary": true,
+    "both_labels_present_per_split": true,
+    "patients_with_images_in_both_classes": 151
+  },
+  "provenance_sha256": {
+    "split_manifest_csv": "34d5d19fee11f32eb72693a52d4fcfd15f7cfd73d69a9f2e0836ee979a496e18",
+    "split_summary_json": "75d0748846a75959e932727150f380d276fd1cb181ce9b4fd97288ab1566193a",
+    "pip_freeze_txt": "15d8b50f333e6a55731974b383d089c8773fdce60ff88462db86d060b0bf68aa"
+  },
+  "privacy": "The patient-level manifest, image paths and mapping CSVs were not uploaded to GitHub. The cryptographic digest identifies the privately held CSV without disclosing its rows.",
+  "caveat": "Dataset validation confirms patient-disjoint allocation, not generalization to different institutions or clinical use."
+}
