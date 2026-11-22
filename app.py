@@ -4,11 +4,10 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
-import numpy as np
 import streamlit as st
 import torch
 from PIL import Image, UnidentifiedImageError
-from torchvision import transforms
+from scripts.preprocessing import image_transform
 
 ROOT = Path(__file__).resolve().parent
 WEIGHTS = ROOT / "outputs" / "model_best.pt"
@@ -52,10 +51,7 @@ if uploaded:
         st.error("Could not read this image.")
         st.stop()
     st.image(picture, caption="Uploaded individual-cell image", width=300)
-    transform = transforms.Compose([
-        transforms.Resize((224, 224)), transforms.ToTensor(),
-        transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225]),
-    ])
+    transform = image_transform(augment=False)
     with torch.inference_mode():
         prob = float(torch.softmax(model(transform(picture).unsqueeze(0)), dim=1)[0, 1])
     st.caption("These are model scores, not calibrated patient-level disease probabilities.")
