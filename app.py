@@ -90,6 +90,13 @@ if BRAND_LOGO.is_file() and BRAND_BANNER.is_file():
             line-height: 1.5;
             font-size: 14px;
         }}
+        .ms-credit {{
+            color: #dccfe9;
+            font: 500 12px/1.5 system-ui, sans-serif;
+            margin-top: 13px;
+            letter-spacing: .01em;
+        }}
+        .ms-credit strong {{ color: #ff9ab0; font-weight: 700; }}
         @media (max-width: 600px) {{
             .ms-hero {{ padding: 22px 19px; border-radius: 16px; }}
             .block-container {{ padding-top: 1rem; }}
@@ -104,6 +111,7 @@ if BRAND_LOGO.is_file() and BRAND_BANNER.is_file():
                 Analyze individual cropped blood-cell images, compare session results,
                 and export research reports for independent professional review.
             </p>
+            <p class="ms-credit">Developed by <strong>M.A. Kromah</strong></p>
         </section>
         """,
         unsafe_allow_html=True,
@@ -308,5 +316,5 @@ with report_tab:
                "research document for optional independent microscopy review. "
                "It is not an electronic referral, clinical interpretation or diagnosis.")
 st.divider()
-st.caption("MalariaScope · Research and education only · NIH/NLM cell-image dataset. "
-           "Illustrative branding is not microscopy evidence.")
+st.caption("MalariaScope · Developed by M.A. Kromah · Research and education only · "
+           "NIH/NLM cell-image dataset. Illustrative branding is not microscopy evidence.")
