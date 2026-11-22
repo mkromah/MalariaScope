@@ -1,6 +1,6 @@
 # MalariaScope — Kaggle environment record
 
-The author uploaded `pip-freeze.txt` from the Kaggle runtime. It contains **937 package entries**, many preinstalled by Kaggle and unrelated to this study. The complete snapshot is kept in the author's private research backup; key direct dependencies used by this project are listed below. These versions were extracted from the uploaded file, **not inferred from `requirements.txt`**.
+I exported `pip-freeze.txt` from Kaggle. It lists **937 packages**, many of which Kaggle preinstalled and this project does not use. I keep the complete snapshot in my research backup and list the main packages here, using the saved file rather than guessing versions from `requirements.txt`.
 
 | Package | Recorded version |
 |---|---|
@@ -18,13 +18,13 @@ The exact 937-entry file has SHA-256:
 
 `15d8b50f333e6a55731974b383d089c8773fdce60ff88462db86d060b0bf68aa`
 
-Kaggle GPU drivers, NVIDIA runtime, Python interpreter and hardware version have not all been established by this uploaded `pip freeze`; the exact execution environment cannot be reconstructed from the package list alone. A fresh installation of the full 937 packages is **not recommended**: the file includes Kaggle/Colab environment-specific and Git-based entries. The project's `requirements.txt` is for practical installations rather than a bit-for-bit lock file.
+I cannot reconstruct the full Kaggle runtime from the package list alone: it does not record all GPU driver, NVIDIA runtime, Python interpreter, and hardware details. A fresh installation of the full 937 packages is **not recommended**: the file includes Kaggle/Colab environment-specific and Git-based entries. The project's `requirements.txt` is for practical installations rather than a bit-for-bit lock file.
 
 ## Dataset split and privacy
 
-The uploaded `split_manifest.csv` contained **27,558 rows**, four columns (`path`, `label`, `patient_id`, `split`), **201 unique patient IDs** and no missing values. Zero duplicate image paths and **zero patient overlap** were found among train, validation and test.
+I checked **27,558 rows** and four columns in `split_manifest.csv` (`path`, `label`, `patient_id`, `split`), **201 unique patient IDs** and no missing values. I found no duplicate image paths and **no patient overlap** between training, validation, and testing.
 
-For machine-readable, non-identifying counts and an audit record, see [split_summary.json](../results/split_summary.json) and [data_audit.json](../results/data_audit.json). The raw patient-level manifest was **not published**; the public audit includes its SHA-256, allowing a user holding the private file to check it has not changed.
+For machine-readable, non-identifying counts and an audit record, see [split_summary.json](../results/split_summary.json) and [data_audit.json](../results/data_audit.json). I keep the raw patient-level manifest private. I publish its SHA-256 so anyone who has the file can check its integrity.
 
 ## Reproduction notes
 
@@ -34,4 +34,4 @@ For machine-readable, non-identifying counts and an audit record, see [split_sum
 4. Run the baseline, 8-epoch CNN training and test evaluation separately, using validation-only model and review threshold selection.
 5. Compare generated JSON files with `results/`, and do not use the test partition to choose model/threshold.
 
-**Limitations:** The verification performed here checked the uploaded split manifest's consistency. It did not redownload raw images or independently rerun the training code.
+**Limitations:** I checked that the saved split manifest is internally consistent. I did not redownload the raw images or rerun the full training pipeline.
