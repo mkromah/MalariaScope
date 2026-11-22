@@ -1,56 +1,57 @@
-# Hackathon submission draft — MalariaScope
+# MalariaScope — Devpost submission draft
 
-**Status:** In development. **Do not submit this as if results have been measured.** Replace the bracketed placeholders only after reproducing the analysis.
+**Status:** Research pipeline evaluated; public demo and submission video still pending. This is a draft, not proof of clinical utility.
 
-## The problem and who has it
+## Project description
 
-Manual examination of thin blood smears requires training and attention. MalariaScope investigates whether a lightweight image classifier can separate cropped parasitized and uninfected red blood cells and refer uncertain cases to a microscopy professional. Its intended audience is researchers and laboratory training teams exploring computer-assisted microscopy, **not patients seeking diagnosis**.
+**Problem and who has it:** Reviewing malaria blood smears requires trained human attention. MalariaScope studies a narrow research task: classifying *already-cropped* individual cell images and flagging uncertain results for human review. It is intended for researchers and educational demonstrations, not patients or clinical diagnoses.
 
-## What we built
+**Method:** The project used the NIH/NLM malaria microscopy dataset (27,558 cropped cells, 201 distinct patient IDs). A patient-disjoint split (seed 42) assigned 139 patients to training, 31 to validation, and 31 to held-out testing. A simple RGB-histogram Logistic Regression model served as the baseline. A pretrained MobileNetV3-Small classifier was trained using aspect-ratio-preserving 224×224 padding, normalization and training-only augmentation. The best checkpoint was selected at epoch 3 by validation loss. A separate symmetric uncertainty band (margin 0.49) was chosen using validation data.
 
-The repository implements official NIH malaria cell-image retrieval, patient-to-image mapping, patient-disjoint dataset partitions, a simple RGB histogram logistic regression baseline, a MobileNetV3-Small training pipeline, validation-only selection of a review margin, held-out test metrics, and a Streamlit research interface. Training and clinical performance are **not yet demonstrated**.
+## Evaluation
 
-## Evaluation — fill after executing
+The RGB-histogram baseline achieved 88.28% sensitivity, 95.34% specificity and 0.9569 AUROC on 4,459 validation images. MobileNetV3 achieved 97.83% sensitivity, 98.29% specificity and 0.9967 AUROC on that same partition.
 
-- Training/validation/test split: patient-disjoint using seed 42; report [N] patients and [N] images in each split.
-- Baseline (validation): [AUROC], [sensitivity], [specificity].
-- Final test set (frozen model): [AUROC], [sensitivity], [specificity], [TP, FP, TN, FN].
-- Review threshold set solely on validation: [margin]; referrals [n/N] (%).
-- Missed infected cells after deferral: [n] of [all infected test cells].
-- Deployment and inference time: [measured hardware and latency].
-- Caveats: the outcome is **cell-label accuracy**, not patient-level malaria screening accuracy.
+On **3,805 cells from 31 held-out patients**, the selected MobileNetV3 model achieved **95.94% sensitivity, 96.62% specificity, 0.9919 AUROC and 0.9583 F1**, with 1,608 true positives, 2,057 true negatives, 72 false positives, and 68 false negatives.
 
-All reported results must point to exact saved output files, scripts, model-weight provenance, environment versions, dataset hashes, and the specific commit used. Do not state target performance as actual performance.
+Using the validation-selected uncertainty band, the model automatically classified **2,983 (78.4%)** of the test images, referring **822 (21.6%)** for human review. Among automatic classifications, **20 errors remained, including 10 infected cells classified as uninfected**. The referred images were not reviewed by humans in this study, so their eventual correctness and any clinical workload savings are unknown.
+
+These figures are **individual cropped-cell results, not patient diagnosis accuracy**. They cannot establish safety for malaria screening or rule-out. Full aggregate evidence is in [RESULTS.md](RESULTS.md) and `results/`.
 
 ## Who benefits, and who could be harmed
 
-Potential beneficiaries are researchers studying microscopy-aided screening and laboratory educators evaluating uncertainty-aware classification. A false negative could incorrectly reassure a clinician or patient and delay diagnosis; a false positive could cause needless concern or review. Domain shift in microscopes, staining, parasite stages, and collection sites may cause unpredictable failure. Referrals based on an unvalidated threshold must not be treated as safe clinical triage.
+Potential beneficiaries are researchers and laboratory educators investigating image classification and uncertainty-aware review. A false-negative prediction could create dangerous false reassurance, while a false positive could trigger additional testing. Changes in microscope, staining, specimen preparation, parasite stage and population may lead to model failures. This project is not approved for clinical use.
 
 ## Limitations
 
-- Trained only on cropped individual red cells, not entire clinical blood smears.
-- Labels and patient mapping may not capture external-site and microscope variability.
-- Noninfected cells are not equivalent to confirmed malaria-negative patients.
-- Validation-selected confidence bands cannot guarantee clinical sensitivity.
-- Intended only for controlled research demonstration; no real-world diagnostic claims.
+- Pre-cropped individual cells; no validation on full thin smears, thick smears, or patients.
+- Test images from the original dataset only; no independent acquisition-site validation.
+- A selected subset's conditional accuracy cannot be interpreted as overall clinical sensitivity.
+- No human review experiment, cost study, calibration study or prospective clinical assessment.
+- Patient-correlated images mean naïve image-level confidence intervals would be misleading.
+- Software environment and private split manifest are still awaiting a complete reproducibility archive.
 
-## What we would do with another month
+## If we had another month
 
-Test on images from a separate acquisition site and additional smear conditions; measure calibration and referral workload; add quality-control checks; undertake a blinded laboratory-reader comparison subject to appropriate clinical oversight.
+Test an independent microscopy dataset, quantify patient-cluster uncertainty and image quality failures, evaluate review burden with laboratory professionals, and validate inference speed on low-cost hardware.
 
-## Full attribution
+## Attribution
 
-NIH/NLM malaria microscopy image dataset and original research listed in the [official dataset datasheet](https://lhncbc.nlm.nih.gov/LHC-research/LHC-projects/image-processing/malaria-datasheet.html); PyTorch/torchvision pretrained MobileNetV3 weights if used; scikit-learn; Streamlit; Python packages recorded in requirements. OpenAI ChatGPT assisted with code drafting, workflow design and documentation; outputs require review and verification.
+- Dataset and linked original research: [NIH/NLM malaria imaging datasheet](https://lhncbc.nlm.nih.gov/LHC-research/LHC-projects/image-processing/malaria-datasheet.html).
+- MobileNetV3 pretrained weights: torchvision / PyTorch and associated sources.
+- Logistic Regression: scikit-learn. App: Streamlit. Image handling: Pillow.
+- OpenAI ChatGPT helped with research planning, drafting code, results reporting, and documentation. Model training and image analysis were performed in Kaggle by the author; uploaded artifacts were examined for consistency.
 
-## Before submitting
+## Submission checklist
 
-- [ ] Obtain patient mapping and download the images
-- [ ] Verify data integrity and record dataset hashes
-- [ ] Run and inspect data split and sample image quality
-- [ ] Train baseline and MobileNet with frozen seed/config
-- [ ] Select one final model from validation data
-- [ ] Run exactly one held-out test evaluation for reporting
-- [ ] Review numerical results and avoid clinical overclaims
-- [ ] Publish reproducible trained weights or a reliable retrieval method
-- [ ] Deploy and manually verify demo
-- [ ] Capture working demo video and include repository/live links
+- [x] Define research task and clinical limitations.
+- [x] Download and examine the NIH cell images and patient mappings in Kaggle.
+- [x] Create patient-disjoint train/validation/test partition.
+- [x] Train baseline and MobileNet; choose one validation checkpoint.
+- [x] Report held-out test metrics and an uncertainty-based referral experiment.
+- [x] Publish aggregate results and methodology in GitHub.
+- [ ] Preserve and verify exact environment and split records from complete ten-file backup.
+- [ ] Publish the model checkpoint through a suitable mechanism.
+- [ ] Deploy and test public Streamlit demo.
+- [ ] Record and publish short walkthrough video.
+- [ ] Add final links and submit on Devpost.
