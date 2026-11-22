@@ -1,0 +1,22 @@
+{
+  "model": "mobilenet_v3_small",
+  "seed": 42,
+  "pretrained": true,
+  "epochs_requested": 8,
+  "best_epoch": 3,
+  "batch_size": 64,
+  "lr": 0.0003,
+  "validation_metrics": {
+    "sensitivity": 0.9783347493627867,
+    "specificity": 0.9828978622327791,
+    "false_negatives": 51,
+    "false_positives": 36,
+    "auroc": 0.9966574305220608
+  },
+  "selection": {
+    "margin": 0.49,
+    "validation_coverage": 0.8205875756896165,
+    "validation_false_negative_count": 8
+  },
+  "warning": "Research-only individual-cell predictions, not clinical diagnosis"
+}
