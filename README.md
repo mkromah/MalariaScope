@@ -8,11 +8,11 @@
 
 ## Why this project?
 
-Manual malaria microscopy requires trained attention. MalariaScope studies whether a lightweight model can distinguish infected and uninfected **cropped cell images** while referring some uncertain images for manual review.
+I built MalariaScope to explore how a lightweight model distinguishes infected and uninfected **cropped cell images** and when it should ask for manual review. I do not use it to diagnose malaria.
 
 ## Verified research results
 
-The developer inspected the user-provided Kaggle model checkpoint and results archive. Reported metrics are mathematically consistent with the saved confusion matrix; this **does not** constitute independent retraining or external validation.
+I trained and evaluated the model in Kaggle, then checked the saved metrics against the confusion matrix. I have **not** independently retrained the model or tested it on an external dataset.
 
 | Metric | RGB-histogram Logistic Regression (validation) | MobileNetV3-Small (validation) | MobileNetV3-Small (held-out test) |
 |---|---:|---:|---:|
@@ -22,13 +22,13 @@ The developer inspected the user-provided Kaggle model checkpoint and results ar
 | AUROC | 0.9569 | 0.9967 | 0.9919 |
 | False negatives | 276 | 51 | 68 |
 
-The test set consists of 3,805 images from **31 held-out patients**. The plain classifier produced TP 1,608; TN 2,057; FP 72; FN 68.
+I evaluated 3,805 images from **31 held-out patients**. The classifier produced TP 1,608; TN 2,057; FP 72; FN 68.
 
-The **validation-selected uncertainty policy** (symmetric probability margin 0.49) referred 822/3,805 (21.60%) test images to manual review. Of the remaining 2,983 automatic decisions, 20 were incorrect, including **10 infected cells predicted as uninfected**. The 822 referred cells are **not** assumed to be correctly classified. Full counts and limitations: [Results](docs/RESULTS.md).
+I selected the **uncertainty review margin** (0.49) on validation data. On the held-out test images, it referred 822/3,805 (21.60%) cells for review. Of the remaining 2,983 automatic decisions, 20 were incorrect, including **10 infected cells predicted as uninfected**. I do **not** count the 822 referred cells as correctly classified. Full counts and limitations: [Results](docs/RESULTS.md).
 
 ## Dataset
 
-NIH/NLM [Malaria Cell Images](https://lhncbc.nlm.nih.gov/LHC-research/LHC-projects/image-processing/malaria-datasheet.html): 27,558 cropped individual blood-cell images (13,779 parasitized; 13,779 uninfected). The user verified **201 distinct patients** across both mapping files (many patients appear in both label categories). Patient assignments were made exclusively at the patient level, with seed 42.
+NIH/NLM [Malaria Cell Images](https://lhncbc.nlm.nih.gov/LHC-research/LHC-projects/image-processing/malaria-datasheet.html): 27,558 cropped individual blood-cell images (13,779 parasitized; 13,779 uninfected). I checked **201 distinct patient IDs** across both mapping files (some patients appear in both label categories). I split patients, rather than images, into the three partitions using seed 42.
 
 | Split | Patients | Images | Parasitized | Uninfected |
 |---|---:|---:|---:|---:|
@@ -36,7 +36,7 @@ NIH/NLM [Malaria Cell Images](https://lhncbc.nlm.nih.gov/LHC-research/LHC-projec
 | Validation | 31 | 4,459 | 2,354 | 2,105 |
 | Test | 31 | 3,805 | 1,676 | 2,129 |
 
-Raw datasets, patient-specific manifest, and patient mappings are **not** distributed here. Respect the provider's terms and original publication attribution.
+I do **not** publish raw images, patient-level manifests, or patient mapping files here. Respect the provider's terms and original publication attribution.
 
 ## Reproduce the research
 
@@ -52,19 +52,19 @@ python scripts/train.py --epochs 8 --batch-size 64
 python scripts/evaluate.py
 ```
 
-See the [Kaggle notebook](notebooks/MalariaScope_Kaggle.ipynb) and [run guide](docs/KAGGLE_RUN_GUIDE.md) for staged execution. The model uses aspect-ratio-preserving 224 × 224 padding with black borders, ImageNet normalization, and random horizontal/vertical flips on training images only.
+See the [Kaggle notebook](notebooks/MalariaScope_Kaggle.ipynb) and [run guide](docs/KAGGLE_RUN_GUIDE.md) for staged execution. I resize and pad each image to 224 × 224 without stretching it, use ImageNet normalization, and apply random horizontal/vertical flips only during training.
 
-Outputs generated locally under `outputs/` include model weights, validation selection, and test metrics. The aggregate result JSON files in `results/` were checked against the uploaded archive. **The user subsequently uploaded the previously missing records separately.** The private patient-level manifest was audited (27,558 unique image paths; no patient overlap); public [aggregate split summary](results/split_summary.json), [audit record](results/data_audit.json), and [verified software versions](docs/REPRODUCIBILITY.md) are now published. The complete environment snapshot and patient-level manifest remain private, and an independent rerun has not yet been performed. The model weights are preserved in the user's local backup but have not been published here.
+I keep model weights, validation settings, and evaluation metrics in `outputs/` during training. I checked the aggregate metrics and audited the private split manifest: 27,558 unique image paths and no shared patients across partitions. I publish the [split summary](results/split_summary.json), [audit](results/data_audit.json), and [software versions](docs/REPRODUCIBILITY.md), but keep the patient-level manifest and full environment snapshot private. I have not independently rerun the entire training pipeline.
 
 ## Demo
 
-The Streamlit interface is implemented in [app.py](app.py), but **no public live demo or downloadable checkpoint is yet deployed**. To run it, place the trained `model_best.pt` and `selection.json` under `outputs/` and run:
+I run the research-only Streamlit dashboard from [app.py](app.py). The public demo runs from the [`improvements/award-readiness`](https://github.com/mkromah/MalariaScope/tree/improvements/award-readiness) branch, where I keep the trained checkpoint and branding. To run it locally, add `model_best.pt` and `selection.json` under `outputs/` and use:
 
 ```bash
 streamlit run app.py
 ```
 
-The interface intentionally stops if those files are absent.
+The app stops with a clear message if either file is missing.
 
 ## Structure
 
@@ -89,12 +89,12 @@ The interface intentionally stops if those files are absent.
 
 ## Responsible use and harms
 
-False negatives could cause dangerous false reassurance; false positives could trigger unnecessary review. Staining, device, population, and site differences may significantly degrade accuracy. This project has not been assessed on full smears, in different laboratories, or with clinical readers. The review threshold is research-only and **not** a clinically validated safety threshold. See [limitations and results](docs/RESULTS.md).
+False negatives could cause dangerous false reassurance; false positives could trigger unnecessary review. Staining, device, population, and site differences may significantly degrade accuracy. I have not tested the model on full blood smears, at other laboratories, or with clinical readers. I use the review threshold for research only; **no clinical validation supports it**. See [limitations and results](docs/RESULTS.md).
 
 ## Attribution
 
 - NIH/NLM malaria microscopy image data; follow linked dataset datasheet for the original researchers and citations.
 - PyTorch, torchvision and ImageNet-pretrained MobileNetV3-Small weights; scikit-learn logistic regression; Streamlit; Pillow; NumPy.
-- OpenAI ChatGPT assisted with planning, code drafting, evaluation documentation, and repository updates. Data execution and model training were conducted by the project author in Kaggle; the archived outputs were subsequently checked here.
+- I used OpenAI ChatGPT to help plan the workflow, draft parts of the code, review results, and edit documentation. I ran model training and evaluation in Kaggle, then checked the saved outputs.
 
-License for original project code: under review. Do not assume an open-source license applies to NIH data or model weights.
+I have not yet assigned a licence to the original project code. Do not assume that NIH data or pretrained model weights share that licence.
