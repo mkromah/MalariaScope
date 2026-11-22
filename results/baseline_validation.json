@@ -1,0 +1,15 @@
+{
+  "model": "RGB-histogram logistic regression",
+  "eval_split": "validation only (never test)",
+  "metrics": {
+    "n": 4459,
+    "tn": 2007,
+    "fp": 98,
+    "fn": 276,
+    "tp": 2078,
+    "sensitivity": 0.8827527612574342,
+    "specificity": 0.9534441805225653,
+    "auroc": 0.9568564751562509
+  },
+  "warning": "Image-level research baseline, NOT clinical performance."
+}
