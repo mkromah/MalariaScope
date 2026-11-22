@@ -22,24 +22,16 @@ from PIL import Image
 from sklearn.metrics import confusion_matrix, roc_auc_score
 from torch import nn
 from torch.utils.data import DataLoader, Dataset
-from torchvision import models, transforms
+from torchvision import models
+from preprocessing import image_transform
 
 ROOT = Path(__file__).resolve().parents[1]
-MEAN = [0.485, 0.456, 0.406]
-STD = [0.229, 0.224, 0.225]
-
 
 class CellDataset(Dataset):
     def __init__(self, records, root: Path, augment: bool = False):
         self.records = records
         self.root = root
-        self.transform = transforms.Compose([
-            transforms.Resize((224, 224)),
-            *([transforms.RandomHorizontalFlip(), transforms.RandomVerticalFlip()]
-              if augment else []),
-            transforms.ToTensor(),
-            transforms.Normalize(MEAN, STD),
-        ])
+        self.transform = image_transform(augment=augment)
 
     def __len__(self):
         return len(self.records)
