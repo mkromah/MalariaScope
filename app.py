@@ -274,7 +274,7 @@ with analysis_tab:
         st.markdown(
             f'<div class="ms-outcome ms-outcome--{current["category"]}">'
             f'<strong>{safe_label}</strong>'
-            '<span>Research-only output. Professional verification remains necessary.'</span></div>',
+            '<span>Research-only output. Professional verification remains necessary.</span></div>',
             unsafe_allow_html=True,
         )
         st.progress(current["score"], text="Parasitized-class model score")
