@@ -7,5 +7,6 @@ torch>=2.3,<3
 torchvision>=0.18,<1
 streamlit>=1.36,<2
 reportlab>=4.2,<5
+svglib>=1.5,<2  # Render the versioned SVG logo inside printable PDFs
 # Freeze exact package versions in a successful training environment
 # and record them alongside the final model checkpoint.
