@@ -15,6 +15,6 @@ jobs:
       - name: Compile Python files
         run: python -m compileall -q scripts app.py
       - name: Install report generation dependencies
-        run: python -m pip install "reportlab>=4.2,<5" "Pillow>=10,<12"
+        run: python -m pip install "reportlab>=4.2,<5" "Pillow>=10,<12" "svglib>=1.5,<2"
       - name: Test data preparation, report exports and review decisions
         run: python -m unittest discover -s tests -v
