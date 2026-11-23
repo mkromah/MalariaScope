@@ -13,7 +13,8 @@ This checklist reflects the project author's confirmation that Streamlit deploym
 - [x] Streamlit app implemented and reportedly deployed by the project author.
 
 ## Final checks (only what remains to confirm)
-- [ ] Add **public Streamlit app URL** to README and Devpost entry. The repo does not yet contain the exact URL.
+- [x] Record **author-provided public Streamlit app URL** in the README and Devpost draft: https://malariascope-mkromah.streamlit.app/
+- [ ] Add the URL to the actual Devpost submission after a working public smoke test.
 - [ ] Open the deployed site without developer credentials; confirm a cropped-cell image produces a real prediction or manual-review referral.
 - [ ] Confirm the deployed application can access its trained checkpoint, and document that mechanism without sharing secrets or private patient mappings.
 - [ ] Check that the app's prominent warning explains that this is **not clinical diagnosis**.
@@ -34,6 +35,6 @@ This checklist reflects the project author's confirmation that Streamlit deploym
 ## Final links (record after verification)
 
 - Public repository: https://github.com/mkromah/MalariaScope
-- Live Streamlit application: *URL not yet recorded in this repository*
+- Live Streamlit application (author-provided; independent verification pending): https://malariascope-mkromah.streamlit.app/
 - Video demonstration: *URL not yet recorded*
 - Final Devpost submission: *not yet confirmed*
