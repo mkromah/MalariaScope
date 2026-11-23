@@ -1,34 +1,61 @@
-# MalariaScope — pilot plan for uncropped microscopy fields
+# MalariaScope — Uncropped Microscopy Validation and Detection Pilot
 
-**Status:** Proposed extension, **not trained or evaluated**. The existing, frozen MobileNetV3 model and reported 3,805-cell test results remain unchanged.
+**Status (23 November 2026):** Project design only. **No full-field model training, external test results, or improvement claim yet.** Preserve the frozen cell-level MobileNetV3 and reported 3,805-cell test results as the existing validated research benchmark.
 
-## Why uncropped images are a different task
+## Research question
 
-MalariaScope currently classifies already-cropped, individual cell images. A full microscopy field contains background, overlapping cells, artifacts, and multiple potential parasites. Feeding an entire field directly into the cropped-cell model would not produce a scientifically valid smear-level result.
+Can the existing cell-image classifier retain useful performance when cells come from realistic, *uncropped thin-smear microscopy fields*, and can a separate cell detector locate candidate cells accurately enough for an end-to-end, uncertainty-aware pipeline?
 
-A suitable extension has **two stages**:
+*Reliability is measured, not assumed. A new detection stage can introduce additional false negatives.*
 
-1. **Locate candidate cells or parasites** in a larger image, with a detector or annotated segmentation model.
-2. **Classify appropriately cropped candidates** with the existing frozen classifier; preserve a separate reject/review option and show detections overlaid on the original field.
+## Data sources and key caution
 
-The two-stage pipeline must be assessed **end to end**. Cropping from reference bounding boxes for evaluation would overstate real-world performance because it bypasses detection errors.
+1. **NIH/NLM Thin Blood Smears Pf**: https://data.lhncbc.nlm.nih.gov/public/Malaria/NIH-NLM-ThinBloodSmearsPf/index.html
+   - Provider README: https://data.lhncbc.nlm.nih.gov/public/Malaria/NIH-NLM-ThinBloodSmearsPf/ReadMe.pdf
+   - 193 patients, 5 full-field images per patient; 5312 x 2988 resolution. Polygon and point subsets have annotations for parasitized/uninfected cells and WBCs.
+   - The full-field NIH images and our 27,558 cropped NIH cell images trace to the **same original malaria research program/hospital**. Patient and image overlap is plausible; **this dataset must not be described as independent external validation unless overlap is ruled out explicitly**. Use for annotation-format exploration and developing a cell detection baseline with strictly separated patient identifiers and provenance checks.
+   - The index includes a separate *Data License Agreement.docx*. Review it before redistribution, republication or training reuse. Archive is about 690 MB.
 
-## Public data candidates to audit
+2. **Makerere University / Lacuna malaria dataset (Uganda)**:
+   - Data paper: https://pmc.ncbi.nlm.nih.gov/articles/PMC11719325/
+   - Harvard Dataverse: https://dataverse.harvard.edu/dataverse/airlab_lacuna_mal
+   - 1,000 thin-smear fields and 3,000 thick-smear fields, with image annotations. Thin-smear labels include parasitized cells, trophozoites, WBCs and artifacts. Check each available annotation class and whether *all uninfected cells are annotated* before specifying denominators for cell-level specificity.
+   - Different hospital/equipment setting; appropriate *candidate* for a domain-shift benchmark. Check access, rights, origin, slide IDs, image quality and train/test provenance first.
+   - **Do not mix thick- and thin-smear tasks.** The current classifier expects a cropped red blood cell from a thin smear.
 
-- [NIH/NLM thin blood smear full-field images and cell annotations](https://data.lhncbc.nlm.nih.gov/public/Malaria/NIH-NLM-ThinBloodSmearsPf/ReadMe.pdf): field images with polygon/point annotations; confirm downloaded structure, licensing and mapping metadata before use.
-- [Makerere University annotated microscopy datasets](https://air.ug/microscopy/): includes thick smear images with parasite bounding-box annotations. Thick smears should be evaluated **separately** from thin-cell classification; never treat this as the same label task.
+## Three distinct experiments (in order)
 
-## Minimal exploration without new clinical claims
+### Experiment A — Audit (no training)
+- Download/acquire dataset metadata and a small set of representative full-field images in Kaggle.
+- Audit image size, file quality, annotation formats, class completeness, patient/slide identifiers, license and overlap.
+- Record dataset version/hash and whether the source can support evaluation of both infected and uninfected cells.
+- Stop if annotations are insufficient for the proposed metric.
 
-- [ ] Audit license, annotation scheme, patient/site metadata and image resolution.
-- [ ] Decide **thin-smear cell localization** versus **thick-smear parasite detection**; don't merge these tasks.
-- [ ] Partition by slide/patient/acquisition site **before** augmentation or patch generation.
-- [ ] Establish annotation coverage and ground-truth labels on full fields.
-- [ ] Train a baseline detector; evaluate detections with recall and precision at stated localization tolerance or IoU.
-- [ ] Evaluate combined detector + classifier with end-to-end missed-parasite counts and review workload.
-- [ ] Use a new untouched test partition; measure failures on blur, stain change, overlaps, and difficult backgrounds.
-- [ ] Label all examples as research data, with no diagnosis or parasitemia output.
+### Experiment B — Isolate model generalization
+- For regions with reliable expert annotations, crop cells **using reference coordinates** solely as a *classifier-only diagnostic test*.
+- Run the **frozen** MobileNetV3 checkpoint without retraining.
+- Evaluate per-cell sensitivity and (only where confirmed complete negative labels exist) specificity, confusion matrix, abstention/review fraction and false negatives.
+- This experiment does **not** represent automated full-field performance because a human/ground truth supplied the crops.
+- Use a different acquisition site if possible; account for patient/slide clustering.
 
-## Hackathon decision
+### Experiment C — Full-field pipeline
+- Split by patient/slide before patch generation or augmentation.
+- Train or adapt a *cell locator* (e.g. a small object detector), using a thin-field dataset with valid cell locations.
+- Evaluate detection recall/precision and cell-localization error at specified IoU or centroid tolerance.
+- Then pass predicted crops through the frozen classifier. Evaluate **end to end** against full-field annotations: missed infected cells, spurious alerts per field, count of undecidable/referred regions, throughput and runtime.
+- Compare automated detected crops against expert-provided crops and explain failures. Unannotated or overlapping cells should not be silently counted as correct negatives.
 
-The current cropped-cell model has measured held-out performance. Do **not** quietly replace those results with full-field claims. Treat any uncropped-image result as a separate exploratory experiment until it has its own evaluation and limitations. The UI and PDF redesign does not alter the frozen model.
+## Release decision
+
+- Keep existing cropped-cell app and documented metrics unchanged.
+- Promote a new 'Full-field experimental' tab only if (1) annotations are trustworthy, (2) held-out end-to-end metrics can be reproduced, and (3) warning text clearly states that this is **not** an entire-smear or patient diagnosis.
+- Otherwise include this work as a clearly labeled pilot/future research direction.
+
+## Suggested timeboxed order before 5 December 2026
+
+1. **One session:** audit Uganda thin-smear labels and compare NIH field annotation structure; check license/provenance.
+2. **Next session:** run the frozen model on reference-cropped, separately sourced annotated cells **if valid labels are available**; document any performance shift.
+3. **Only if feasible:** add and benchmark cell localization; don't sacrifice the evaluated primary submission.
+4. Freeze new experiments and finish the demonstration video/Devpost by 4 December.
+
+No result should be described as 'improved' until quantitative held-out evidence is available.
