@@ -58,7 +58,7 @@ Outputs generated locally under `outputs/` include model weights, validation sel
 
 ## Demo
 
-The project author confirms that the Streamlit application has been deployed at **[malariascope-mkromah.streamlit.app](https://malariascope-mkromah.streamlit.app/).** The link was supplied by the author on 23 November 2026. An independent live smoke test (page accessibility, model loading, and image-upload inference) **has not yet been verified** from this environment. The source interface is in [app.py](app.py). For local use, place the trained `model_best.pt` and `selection.json` under `outputs/` and run:
+The project author confirms that the Streamlit application has been deployed at **[malariascope-mkromah.streamlit.app](https://malariascope-mkromah.streamlit.app/).** The link was supplied by the author on 23 November 2026. Two PDF reports supplied by the author demonstrate that the deployed app produced **different model outputs and downloadable PDF reports** for two uploaded cropped-cell images (22 November 2026). The first also includes an offline manual-review worksheet. This is **user-provided functional-test evidence**, not an independently observed browser test or a clinical validation. A public access check in a separate browser session remains to be confirmed. The source interface is in [app.py](app.py). For local use, place the trained `model_best.pt` and `selection.json` under `outputs/` and run:
 
 ```bash
 streamlit run app.py
@@ -66,7 +66,7 @@ streamlit run app.py
 
 The interface intentionally stops if those files are absent. Document where deployed weights are loaded from without exposing credentials or private files. The checkpoint is not published in this GitHub repository, which is distinct from whether the deployed app has access to it.
 
-Next hackathon deliverables: an independently verified app smoke test, a short demonstration video, and the final Devpost submission. See the [demo video plan](docs/DEMO_VIDEO_SCRIPT.md) and [final checklist](docs/FINAL_SUBMISSION_CHECKLIST.md).
+Next hackathon deliverables: confirm the app URL works for an unauthenticated visitor, record a short demonstration video, and complete the final Devpost submission. See the [demo video plan](docs/DEMO_VIDEO_SCRIPT.md) and [final checklist](docs/FINAL_SUBMISSION_CHECKLIST.md).
 
 ## Structure
 
