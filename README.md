@@ -2,7 +2,7 @@
 
 **AI-assisted malaria blood-cell classification with uncertainty-aware review**
 
-[AI for Medicine hackathon](https://ai-for-medicine.devpost.com/) · [Results](docs/RESULTS.md) · [Reproducibility audit](docs/REPRODUCIBILITY.md) · [Kaggle run guide](docs/KAGGLE_RUN_GUIDE.md) · [Submission draft](docs/HACKATHON_SUBMISSION.md) · [Demo video plan](docs/DEMO_VIDEO_SCRIPT.md) · [Final checks](docs/FINAL_SUBMISSION_CHECKLIST.md)
+[Live Streamlit app](https://malariascope-mkromah.streamlit.app/) · [AI for Medicine hackathon](https://ai-for-medicine.devpost.com/) · [Results](docs/RESULTS.md) · [Reproducibility audit](docs/REPRODUCIBILITY.md) · [Kaggle run guide](docs/KAGGLE_RUN_GUIDE.md) · [Submission draft](docs/HACKATHON_SUBMISSION.md) · [Demo video plan](docs/DEMO_VIDEO_SCRIPT.md) · [Final checks](docs/FINAL_SUBMISSION_CHECKLIST.md)
 
 > **Research prototype — not a clinical diagnostic tool.** MalariaScope classifies cropped individual blood-cell images, not patient blood smears or patient infection status. A negative model output must not be used to rule out malaria.
 
@@ -58,7 +58,7 @@ Outputs generated locally under `outputs/` include model weights, validation sel
 
 ## Demo
 
-The project author confirms that the Streamlit application has already been deployed. **The exact public URL and an independent live smoke test are not yet recorded in this repository**, so the public link should be added after it is verified. The source interface is in [app.py](app.py). For local use, place the trained `model_best.pt` and `selection.json` under `outputs/` and run:
+The project author confirms that the Streamlit application has been deployed at **[malariascope-mkromah.streamlit.app](https://malariascope-mkromah.streamlit.app/).** The link was supplied by the author on 23 November 2026. An independent live smoke test (page accessibility, model loading, and image-upload inference) **has not yet been verified** from this environment. The source interface is in [app.py](app.py). For local use, place the trained `model_best.pt` and `selection.json` under `outputs/` and run:
 
 ```bash
 streamlit run app.py
@@ -66,7 +66,7 @@ streamlit run app.py
 
 The interface intentionally stops if those files are absent. Document where deployed weights are loaded from without exposing credentials or private files. The checkpoint is not published in this GitHub repository, which is distinct from whether the deployed app has access to it.
 
-Next hackathon deliverables: a verified live app URL, a short demonstration video, and the final Devpost submission. See the [demo video plan](docs/DEMO_VIDEO_SCRIPT.md) and [final checklist](docs/FINAL_SUBMISSION_CHECKLIST.md).
+Next hackathon deliverables: an independently verified app smoke test, a short demonstration video, and the final Devpost submission. See the [demo video plan](docs/DEMO_VIDEO_SCRIPT.md) and [final checklist](docs/FINAL_SUBMISSION_CHECKLIST.md).
 
 ## Structure
 
