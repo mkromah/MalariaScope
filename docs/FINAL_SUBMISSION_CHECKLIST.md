@@ -15,8 +15,10 @@ This checklist reflects the project author's confirmation that Streamlit deploym
 ## Final checks (only what remains to confirm)
 - [x] Record **author-provided public Streamlit app URL** in the README and Devpost draft: https://malariascope-mkromah.streamlit.app/
 - [ ] Add the URL to the actual Devpost submission after a working public smoke test.
-- [ ] Open the deployed site without developer credentials; confirm a cropped-cell image produces a real prediction or manual-review referral.
-- [ ] Confirm the deployed application can access its trained checkpoint, and document that mechanism without sharing secrets or private patient mappings.
+- [x] Review author-supplied PDF exports showing two distinct model outputs for cropped-cell images and generated research reports (22 November 2026).
+- [ ] Independently confirm the deployed URL opens without developer credentials; this has not been observed in a separate browser session.
+- [x] Confirm functional inference *from author-supplied report evidence*: both reports identify the frozen MobileNetV3-Small checkpoint and show calculated class scores.
+- [ ] Document how the deployed application accesses the trained checkpoint, without disclosing secrets or private patient mappings.
 - [ ] Check that the app's prominent warning explains that this is **not clinical diagnosis**.
 - [ ] Record and publish the [90-second demo video](DEMO_VIDEO_SCRIPT.md) with the app visibly working within the first 60 seconds.
 - [ ] Check project description includes the **Evaluation** section, who benefits/could be harmed, limitations, and what would be done with another month.
