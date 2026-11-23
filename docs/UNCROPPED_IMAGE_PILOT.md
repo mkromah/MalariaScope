@@ -2,6 +2,17 @@
 
 **Status (23 November 2026):** Project design only. **No full-field model training, external test results, or improvement claim yet.** Preserve the frozen cell-level MobileNetV3 and reported 3,805-cell test results as the existing validated research benchmark.
 
+## Next session — 24 November 2026 (agreed plan)
+
+**Use both uncropped microscopy datasets in complementary, separate research experiments:**
+
+- **NIH/NLM full-field thin-smear microscopy**: audit licensing, annotation format, patient identities and overlap with the original NIH cropped-cell training dataset; develop or pilot cell localization. Do not call this an independent external test until overlap has been ruled out.
+- **Makerere University (Uganda) full-field thin smears**: audit access, complete cell-label coverage and patient/slide identifiers; use as the preferred candidate for independent generalization testing of the frozen MobileNetV3 on expert-annotated cell crops, then assess automated detection + classification separately if feasible.
+
+**Tomorrow's first action:** Start by auditing the download/access, metadata and labels for **both** datasets, with a clean numbered notebook. Keep NIH and Uganda results separate, avoid train/test leakage, and **do not retrain or change the currently deployed model yet**. Only propose training a detector or fine-tuning after confirming annotation quality and evaluation splits.
+
+This is a note for the next work session, not a completed experiment or a scheduled reminder.
+
 ## Research question
 
 Can the existing cell-image classifier retain useful performance when cells come from realistic, *uncropped thin-smear microscopy fields*, and can a separate cell detector locate candidate cells accurately enough for an end-to-end, uncertainty-aware pipeline?
