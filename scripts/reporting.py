@@ -134,8 +134,6 @@ def generate_pdf(current: dict, previous: dict | None, image_bytes: bytes,
         ("Research sample", f"{int(current['index']):02d}"),
         ("Time (UTC)", current["timestamp"]),
         ("Model", "MobileNetV3-Small; frozen research checkpoint"),
-        ("Parasitized-class score", f"{float(current['score']):.1%} (uncalibrated)"),
-        ("Model output", current["label"]),
         ("Review status", "Review suggested" if current["category"] == "review"
                           else "Automatic cell classification; not clinician verified"),
         ("Original size", f"{current['width']} x {current['height']} pixels"),
@@ -189,14 +187,11 @@ def generate_pdf(current: dict, previous: dict | None, image_bytes: bytes,
     else:
         story.append(para("No earlier sample in this browser session."))
     story.append(para("Limitations and necessary independent review", "Heading2"))
-    for note in (
-        "The class score is not a calibrated clinical probability.",
-        "The review threshold was selected using validation data and is not clinically validated.",
-        "Individual cropped cells cannot represent an entire smear or diagnose a patient.",
-        "An automatic classification still requires appropriate professional verification.",
-        "No clinical or electronic referral is performed by this application.",
-    ):
-        story.append(para("- " + note, "MSNote"))
+    story.append(para(
+        "The class score is uncalibrated and the review threshold is not clinically validated. "
+        "This tool only analyzes already-cropped individual cells; it cannot interpret complete "
+        "blood smears, diagnose a patient, or send a referral. All decisions require independent "
+        "professional review.", "MSNote"))
     if handoff:
         story += [
             PageBreak(),
