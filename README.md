@@ -2,7 +2,7 @@
 
 **AI-assisted malaria blood-cell classification with uncertainty-aware review**
 
-[AI for Medicine hackathon](https://ai-for-medicine.devpost.com/) · [Results](docs/RESULTS.md) · [Reproducibility audit](docs/REPRODUCIBILITY.md) · [Kaggle run guide](docs/KAGGLE_RUN_GUIDE.md) · [Submission draft](docs/HACKATHON_SUBMISSION.md)
+[Live demo](https://malariascope-mkromah.streamlit.app/) · [AI for Medicine hackathon](https://ai-for-medicine.devpost.com/) · [Results](docs/RESULTS.md) · [Reproducibility audit](docs/REPRODUCIBILITY.md) · [Kaggle run guide](docs/KAGGLE_RUN_GUIDE.md) · [Submission draft](docs/HACKATHON_SUBMISSION.md)
 
 > **Research prototype — not a clinical diagnostic tool.** MalariaScope classifies cropped individual blood-cell images, not patient blood smears or patient infection status. A negative model output must not be used to rule out malaria.
 
@@ -58,32 +58,36 @@ I keep model weights, validation settings, and evaluation metrics in `outputs/` 
 
 ## Demo
 
-I run the research-only Streamlit dashboard from [app.py](app.py). The public demo runs from the [`improvements/award-readiness`](https://github.com/mkromah/MalariaScope/tree/improvements/award-readiness) branch, where I keep the trained checkpoint and branding. To run it locally, add `model_best.pt` and `selection.json` under `outputs/` and use:
+I run the research-only [Streamlit dashboard](https://malariascope-mkromah.streamlit.app/) from [app.py](app.py). The dashboard uses a responsive branded theme in [assets/theme.css](assets/theme.css); both PDF exports use the MalariaScope vector logo, color-coded model output, and a prominent research-only warning. These changes do **not** retrain or alter the frozen classifier. The public demo runs from the [`improvements/award-readiness`](https://github.com/mkromah/MalariaScope/tree/improvements/award-readiness) branch, where I keep the trained checkpoint and branding. To run it locally, add `model_best.pt` and `selection.json` under `outputs/` and use:
 
 ```bash
 streamlit run app.py
 ```
 
-The app stops with a clear message if either file is missing.
+The app stops with a clear message if either file is missing. For a separately evaluated future experiment with larger uncropped microscopy fields, see the [uncropped-image pilot plan](docs/UNCROPPED_IMAGE_PILOT.md); no new model performance is claimed.
 
 ## Structure
 
 ```text
 ├── app.py
+├── assets/ (MalariaScope SVG logo/banner and theme.css)
 ├── notebooks/MalariaScope_Kaggle.ipynb
 ├── scripts/
 │   ├── download_data.py
 │   ├── prepare_data.py
 │   ├── preprocessing.py
 │   ├── baseline.py
+│   ├── dashboard_logic.py
+│   ├── reporting.py
 │   ├── train.py
 │   └── evaluate.py
-├── tests/test_prepare_data.py
+├── tests/ (data preparation, dashboard logic and PDF exports)
 ├── results/                  # aggregate metrics and deidentified split audit
 └── docs/
     ├── RESULTS.md
     ├── REPRODUCIBILITY.md
     ├── KAGGLE_RUN_GUIDE.md
+    ├── UNCROPPED_IMAGE_PILOT.md
     └── HACKATHON_SUBMISSION.md
 ```
 

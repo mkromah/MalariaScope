@@ -5,6 +5,7 @@ import base64
 from datetime import datetime, timezone
 from hashlib import sha256
 from io import BytesIO
+from html import escape
 import json
 from pathlib import Path
 
@@ -21,6 +22,7 @@ SELECTION = ROOT / "outputs" / "selection.json"
 BRAND_LOGO = ROOT / "assets" / "MalariaScope_logo.svg"
 BRAND_BANNER = ROOT / "assets" / "MalariaScope_banner.svg"
 METRICS_FILE = ROOT / "results" / "test_metrics.json"
+THEME_FILE = ROOT / "assets" / "theme.css"
 
 st.set_page_config(
     page_title="MalariaScope | AI-Assisted Microscopy",
@@ -124,6 +126,11 @@ st.error(
     "NOT A MEDICAL DEVICE. This application cannot diagnose or rule out malaria. "
     "Do not use its output to make patient-care decisions."
 )
+# Load responsive visual theme after the branded hero markup.
+# This resolves the fixed Streamlit top bar overlapping the dashboard header.
+if THEME_FILE.is_file():
+    st.markdown("<style>" + THEME_FILE.read_text(encoding="utf-8") + "</style>", unsafe_allow_html=True)
+
 st.caption(
     "Evaluated on cropped individual cells from the NIH/NLM research dataset; "
     "not on complete blood smears or clinical patients."
@@ -175,7 +182,20 @@ with st.sidebar:
                "No stored image archive or clinician messaging is provided.")
     st.markdown("[Source code & limitations](https://github.com/mkromah/MalariaScope)")
 
-st.subheader("Cell image analysis")
+st.markdown("### Cell image workbench")
+info_cols = st.columns(3, gap="small")
+for column, number, title, description in zip(
+    info_cols,
+    ("01", "02", "03"),
+    ("Upload a cell", "Review model output", "Export a report"),
+    ("PNG or JPEG only", "Research-only classification", "PDF and offline handoff"),
+):
+    with column:
+        st.markdown(
+            '<div class="ms-guide"><span class="ms-step">' + number + '</span>'
+            '<div><strong>' + title + '</strong><small>' + description + '</small></div></div>',
+            unsafe_allow_html=True,
+        )
 st.caption("Upload PNG or JPEG of one cropped blood cell. Avoid patient identifiers and full-smear images.")
 uploaded = st.file_uploader(
     "Upload a cropped cell image", type=["png", "jpg", "jpeg"],
@@ -248,12 +268,15 @@ with analysis_tab:
         score_col.metric("Parasitized-class model score", f"{current['score']:.1%}")
         review_col.metric("Review decision",
                           "Manual review" if current["category"] == "review" else "Automatic")
-        if current["category"] == "review":
-            st.warning(current["label"])
-        elif current["category"] == "parasitized":
-            st.warning(current["label"])
-        else:
-            st.info(current["label"] + " — this does NOT rule out malaria.")
+        # A color-coded research status is easier to scan, but the negative class
+        # is intentionally blue/neutral rather than a clinical green 'all clear'.
+        safe_label = escape(current["label"])
+        st.markdown(
+            f'<div class="ms-outcome ms-outcome--{current["category"]}">'
+            f'<strong>{safe_label}</strong>'
+            '<span>Research-only output. Professional verification remains necessary.</span></div>',
+            unsafe_allow_html=True,
+        )
         st.progress(current["score"], text="Parasitized-class model score")
         st.caption("This is an uncalibrated neural-network score, NOT a patient-level "
                    "disease probability or clinical certainty.")
