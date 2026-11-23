@@ -1,6 +1,6 @@
 # MalariaScope — Devpost submission draft
 
-**Status (23 November 2026):** Research pipeline evaluated. The project author confirms Streamlit deployment and provided the public app URL: [MalariaScope live demo](https://malariascope-mkromah.streamlit.app/). The public URL is now documented; independent live access and image-upload inference have **not** been verified from this environment. Demonstration video and final Devpost submission remain unconfirmed. This draft is not proof of clinical utility.
+**Status (23 November 2026):** Research pipeline evaluated. The project author confirms Streamlit deployment and provided the public app URL: [MalariaScope live demo](https://malariascope-mkromah.streamlit.app/). The public URL is documented. Two PDF exports supplied by the author on 23 November show that the app previously processed distinct cropped-cell images and generated research reports, including an optional offline handoff worksheet. This provides user-supplied evidence of functional inference and export, but does **not** independently establish public browser accessibility, ground-truth correctness, or clinical performance. Demonstration video and final Devpost submission remain unconfirmed. This draft is not proof of clinical utility.
 
 ## Project description
 
@@ -54,7 +54,8 @@ Test an independent microscopy dataset, quantify patient-cluster uncertainty and
 - [x] Implement Streamlit app and deploy it (completion reported by project author).
 - [x] Record the author-provided Streamlit URL in the GitHub README and this Devpost draft: https://malariascope-mkromah.streamlit.app/
 - [ ] Independently confirm the Streamlit URL opens publicly and shows live predictions; add it to the actual Devpost submission.
-- [ ] Verify the deployed demo loads model weights and gives an understandable output for a sample cropped-cell image.
+- [x] Inspect two author-supplied PDF reports demonstrating separate cropped-cell predictions and report export; this is a user-supplied functional test, not independent public-site verification.
+- [ ] Verify public-site accessibility without signing in, and document the checkpoint provisioning mechanism.
 - [ ] Document how the deployed app accesses the trained checkpoint without exposing private assets or credentials.
 - [ ] Record and publish a short walkthrough video (see [demo-video plan](DEMO_VIDEO_SCRIPT.md)).
 - [ ] Add final repository, live-demo, and video links; then submit to Devpost.
