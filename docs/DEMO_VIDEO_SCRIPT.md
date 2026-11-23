@@ -1,6 +1,6 @@
 # MalariaScope — final demo video plan
 
-**Status:** Script and recording plan prepared; a recorded video has not yet been confirmed.
+**Status:** Script and recording plan prepared; a recorded video has not yet been confirmed. Author-provided Streamlit app link: https://malariascope-mkromah.streamlit.app/ (independent live smoke test pending).
 
 **Target length:** About 90 seconds. Show the live application and its real output in the **first 60 seconds**. Use the actual deployed Streamlit app, not a simulated prediction. Capture the whole browser window or app clearly enough for a judge to follow.
 
@@ -39,4 +39,4 @@ Use readable on-screen labels: **cell-level test**, **31 held-out patients**, **
 - [ ] Publish the final video via a shareable URL, then add it to Devpost.
 - [ ] Run a final playback check with audio before submitting.
 
-**Required final links:** GitHub repository; public Streamlit app; demo video. The video and deployed app URL have not been documented in this repository yet.
+**Required final links:** GitHub repository; public Streamlit app; demo video. The app URL is documented; live functioning and the video URL remain to be verified/recorded.
