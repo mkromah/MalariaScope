@@ -1,6 +1,7 @@
 """Basic smoke checks for PDF report generation; synthetic images only."""
 import io
 import unittest
+from pypdf import PdfReader
 from PIL import Image
 from scripts.reporting import generate_pdf
 
@@ -25,6 +26,8 @@ class ReportTests(unittest.TestCase):
                 )
                 self.assertTrue(result.startswith(b"%PDF-"))
                 self.assertGreater(len(result), 2000)
+                pages = len(PdfReader(io.BytesIO(result)).pages)
+                self.assertEqual(pages, 2 if handoff else 1)
 
 
 if __name__ == "__main__":
