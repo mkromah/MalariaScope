@@ -1,6 +1,6 @@
 # MalariaScope — Devpost submission draft
 
-**Status (23 November 2026):** Research pipeline evaluated. The project author confirms the Streamlit app has been deployed; its public URL and live behavior have not yet been independently verified or documented in this repository. Demonstration video and final Devpost submission remain unconfirmed. This draft is not proof of clinical utility.
+**Status (23 November 2026):** Research pipeline evaluated. The project author confirms Streamlit deployment and provided the public app URL: [MalariaScope live demo](https://malariascope-mkromah.streamlit.app/). The public URL is now documented; independent live access and image-upload inference have **not** been verified from this environment. Demonstration video and final Devpost submission remain unconfirmed. This draft is not proof of clinical utility.
 
 ## Project description
 
@@ -52,7 +52,8 @@ Test an independent microscopy dataset, quantify patient-cluster uncertainty and
 - [x] Publish aggregate results, split audit, and methodology in GitHub.
 - [x] Verify separately uploaded private split manifest, aggregate summary, and Kaggle package versions; publish non-identifying audit.
 - [x] Implement Streamlit app and deploy it (completion reported by project author).
-- [ ] Add the exact public Streamlit URL to the README and Devpost entry after confirming the link works.
+- [x] Record the author-provided Streamlit URL in the GitHub README and this Devpost draft: https://malariascope-mkromah.streamlit.app/
+- [ ] Independently confirm the Streamlit URL opens publicly and shows live predictions; add it to the actual Devpost submission.
 - [ ] Verify the deployed demo loads model weights and gives an understandable output for a sample cropped-cell image.
 - [ ] Document how the deployed app accesses the trained checkpoint without exposing private assets or credentials.
 - [ ] Record and publish a short walkthrough video (see [demo-video plan](DEMO_VIDEO_SCRIPT.md)).
