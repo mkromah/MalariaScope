@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="440" viewBox="0 0 1600 440" aria-label="Abstract MalariaScope microscopy and data-network backdrop">
+<defs>
+<linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#150c26"/><stop offset=".48" stop-color="#231333"/><stop offset="1" stop-color="#4d153b"/></linearGradient>
+<radialGradient id="glow" cx=".83" cy=".5" r=".6"><stop stop-color="#743156" stop-opacity=".8"/><stop offset="1" stop-color="#260d2f" stop-opacity="0"/></radialGradient>
+<radialGradient id="cell" cx=".32" cy=".25" r=".75"><stop stop-color="#ff9a9a"/><stop offset=".4" stop-color="#e85776"/><stop offset=".86" stop-color="#a82b53"/><stop offset="1" stop-color="#78244f"/></radialGradient>
+<linearGradient id="wave" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#ff667e" stop-opacity=".7"/><stop offset="1" stop-color="#9e6cdd" stop-opacity=".08"/></linearGradient>
+<filter id="blur"><feGaussianBlur stdDeviation="18"/></filter>
+</defs>
+<rect width="1600" height="440" fill="url(#bg)"/><rect width="1600" height="440" fill="url(#glow)"/>
+<g opacity=".14" filter="url(#blur)"><ellipse cx="830" cy="395" rx="320" ry="108" fill="#e64a6b"/><ellipse cx="1460" cy="88" rx="240" ry="110" fill="#b35fcc"/></g>
+<g fill="none" stroke="url(#wave)">
+<path d="M620 448 Q900 170 1605 370" stroke-width="2"/><path d="M640 448 Q940 145 1605 340" stroke-width="1.5"/><path d="M665 448 Q950 122 1605 318" stroke-width="1"/><path d="M690 448 Q980 105 1605 291" stroke-width="1"/><path d="M730 448 Q980 83 1605 268" stroke-width="1"/>
+<path d="M560 -15Q1040 185 1605 12" stroke-width="1" opacity=".6"/><path d="M605 -15Q1050 157 1605 32" stroke-width="1" opacity=".6"/><path d="M650 -15Q1080 140 1605 52" stroke-width="1" opacity=".5"/>
+</g>
+<g transform="translate(1390 170) rotate(-17)" opacity=".88">
+<ellipse rx="115" ry="83" fill="url(#cell)"/><ellipse rx="61" ry="38" fill="#a22f5f" opacity=".72"/>
+<ellipse rx="43" ry="28" fill="none" stroke="#f6b5c3" stroke-width="4" opacity=".55"/><circle cx="-18" cy="-12" r="9" fill="#fce7f9"/><circle cx="9" cy="1" r="5" fill="#f3d7ff"/>
+</g>
+<g transform="translate(1190 305) rotate(18)" opacity=".24">
+<ellipse rx="75" ry="50" fill="url(#cell)"/><ellipse rx="35" ry="19" fill="#9d2350" opacity=".75"/>
+</g>
+<g transform="translate(1530 347) rotate(-25)" opacity=".22"><ellipse rx="59" ry="44" fill="url(#cell)"/></g>
+<g stroke="#b183c7" stroke-width="1.5" opacity=".4">
+<path d="M1000 242l100 -54 104 37 94 -84 101 53 101 -21M1000 242l73 110 122 -21 109 65 93 -65 103 -38M1100 188l95 143 9 -106 100 171 95 -202 101 99M1073 352l131 -127 93 -84 100 190"/>
+</g>
+<g fill="#f56c8b" opacity=".8"><circle cx="1000" cy="242" r="4"/><circle cx="1100" cy="188" r="5"/><circle cx="1204" cy="225" r="4"/><circle cx="1298" cy="141" r="5"/><circle cx="1399" cy="194" r="4"/><circle cx="1073" cy="352" r="4"/><circle cx="1195" cy="331" r="5"/><circle cx="1304" cy="396" r="4"/></g>
+<g fill="#b38de0" opacity=".8"><circle cx="1500" cy="173" r="5"/><circle cx="1397" cy="331" r="4"/><circle cx="1500" cy="293" r="5"/></g>
+</svg>

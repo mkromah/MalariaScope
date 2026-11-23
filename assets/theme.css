@@ -1,0 +1,168 @@
+/* MalariaScope v3 — visual styling only. No inference or clinical logic changes.
+   Header spacing, tabs, result cards and download controls are responsive. */
+:root {
+  --ms-ink: #F5F2F8;
+  --ms-muted: #C4B7D0;
+  --ms-accent: #F27593;
+  --ms-violet: #9E87D5;
+  --ms-border: rgba(236, 205, 247, 0.16);
+  --ms-panel: #241A32;
+}
+/* Streamlit's fixed top chrome previously overlapped the project banner. */
+#MainMenu, footer, [data-testid="stToolbar"],
+[data-testid="stDecoration"], [data-testid="stStatusWidget"] {
+  visibility: hidden !important;
+}
+[data-testid="stHeader"] {
+  height: 0 !important;
+  min-height: 0 !important;
+  background: transparent !important;
+  visibility: hidden !important;
+}
+[data-testid="stAppViewContainer"] > .main { padding-top: 0 !important; }
+section.main > div.block-container,
+[data-testid="stMainBlockContainer"],
+.block-container {
+  max-width: 1240px !important;
+  padding-top: .75rem !important;
+  padding-bottom: 3.5rem !important;
+}
+html { scroll-padding-top: 20px; }
+.stApp {
+  color: var(--ms-ink);
+  background:
+    radial-gradient(circle at 88% 4%, rgba(110, 57, 127, .36), transparent 33%),
+    linear-gradient(150deg, #151020, #120E1D 60%, #1D1429) !important;
+}
+/* Branded hero retains the existing vector logo and custom research artwork. */
+.ms-hero {
+  margin: .2rem 0 1.35rem !important;
+  min-height: 190px !important;
+  padding: 25px 30px 22px !important;
+  border-radius: 21px !important;
+  box-shadow: 0 16px 36px rgba(7, 4, 12, .25) !important;
+}
+.ms-logo { width: min(100%, 290px) !important; margin: -4px 0 5px !important; }
+.ms-headline { font-size: clamp(20px, 2.7vw, 27px) !important; line-height: 1.13 !important; }
+.ms-description { font-size: 13px !important; max-width: 555px !important; }
+.ms-credit { margin-top: 9px !important; }
+.ms-guide {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  min-height: 66px;
+  border: 1px solid var(--ms-border);
+  border-radius: 15px;
+  background: linear-gradient(145deg, rgba(53, 38, 68, .87), rgba(37, 26, 52, .86));
+  padding: 13px 16px;
+  margin-bottom: 1rem;
+}
+.ms-guide .ms-step {
+  display: inline-flex;
+  width: 33px; height: 33px;
+  flex: 0 0 33px;
+  align-items: center; justify-content: center;
+  border-radius: 11px;
+  background: rgba(242, 117, 147, .16);
+  color: #FFB2C6;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: .04em;
+}
+.ms-guide strong { display: block; color: #F7F0FD; font-size: 13px; }
+.ms-guide small { display: block; color: var(--ms-muted); font-size: 11px; line-height: 1.35; }
+/* Labels and the input area */
+[data-testid="stFileUploader"] {
+  border: 1px solid var(--ms-border);
+  background: rgba(31, 22, 43, .83);
+  border-radius: 18px;
+  padding: 13px 17px;
+}
+[data-testid="stFileUploaderDropzone"] {
+  border: 1px dashed #9473AD !important;
+  border-radius: 13px !important;
+  background: rgba(90, 62, 106, .18) !important;
+}
+[data-testid="stFileUploaderDropzone"] button {
+  background: #F27593 !important;
+  color: #23102B !important;
+  font-weight: 700 !important;
+}
+h1, h2, h3 { letter-spacing: -.02em; }
+.stTabs [data-baseweb="tab-list"] {
+  gap: 7px;
+  padding: 6px;
+  border: 1px solid var(--ms-border);
+  border-radius: 14px;
+  background: rgba(33, 23, 46, .92);
+}
+.stTabs [data-baseweb="tab"] {
+  border-radius: 9px;
+  min-height: 43px;
+  color: #D7CCE1;
+  padding: 8px 14px;
+}
+.stTabs [data-baseweb="tab"][aria-selected="true"] {
+  background: #493251;
+  color: #FFF8FD;
+  font-weight: 700;
+}
+.stTabs [data-baseweb="tab-highlight"],
+.stTabs [data-baseweb="tab-border"] { display: none; }
+[data-testid="stMetric"] {
+  background: linear-gradient(135deg, #291E37, #21182D) !important;
+  border: 1px solid var(--ms-border) !important;
+  border-radius: 14px !important;
+  padding: 15px 17px !important;
+}
+[data-testid="stMetricLabel"] { color: #BFB0C9 !important; }
+[data-testid="stMetricValue"] { font-weight: 740 !important; }
+[data-testid="stImage"] img { border-radius: 15px; }
+[data-testid="stAlert"] { border-radius: 12px; }
+[data-testid="stDownloadButton"] button,
+.stDownloadButton button {
+  width: 100%;
+  min-height: 46px;
+  border-radius: 12px !important;
+  border: 1px solid rgba(242, 117, 147, .45) !important;
+  background: linear-gradient(115deg,#6C3E74,#8C456F) !important;
+  color: white !important;
+  font-weight: 700 !important;
+}
+[data-testid="stDownloadButton"] button:hover,
+.stDownloadButton button:hover { background: #A84F7B !important; }
+[data-testid="stSidebar"] {
+  background: #201629 !important;
+  border-right: 1px solid var(--ms-border) !important;
+}
+[data-testid="stSidebar"] [data-testid="stMetric"] { background: #2A2035 !important; }
+.ms-outcome {
+  border: 1px solid var(--ms-border);
+  border-left: 5px solid #9E87D5;
+  border-radius: 12px;
+  padding: 13px 16px;
+  margin: 10px 0 12px;
+  background: rgba(47, 36, 64, .80);
+}
+.ms-outcome strong { display: block; font-size: 13px; line-height: 1.45; }
+.ms-outcome span { display: block; margin-top: 3px; font-size: 11px; color: #D3C5DD; }
+.ms-outcome--review { border-left-color: #F6B961; background: #352B2E; }
+.ms-outcome--parasitized { border-left-color: #FA7288; background: #38222F; }
+.ms-outcome--uninfected { border-left-color: #67ADB9; background: #213039; }
+@media (max-width: 800px) {
+ .ms-guide { min-height: 57px; padding: 9px 11px; gap: 9px; }
+ .ms-guide strong { font-size: 12px; }
+ .ms-guide small { font-size: 10px; }
+}
+@media (max-width: 640px) {
+ .block-container, [data-testid="stMainBlockContainer"] {
+   padding-top: .45rem !important;
+   padding-left: .9rem !important;
+   padding-right: .9rem !important;
+ }
+ .ms-hero { min-height: 0 !important; padding: 22px 19px 20px !important; border-radius: 15px !important; }
+ .ms-logo { width: min(100%, 240px) !important; }
+ .ms-description { font-size: 12px !important; }
+ .stTabs [data-baseweb="tab-list"] { gap: 1px; padding: 4px; overflow-x: auto; }
+ .stTabs [data-baseweb="tab"] { font-size: 11px; padding: 7px 8px; }
+}

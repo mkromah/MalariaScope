@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="820" height="174" viewBox="0 0 820 174" role="img" aria-label="MalariaScope logo: microscope and stylized blood cell">
+<defs><linearGradient id="blood" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#ff8992"/><stop offset=".56" stop-color="#ef465f"/><stop offset="1" stop-color="#b82548"/></linearGradient><linearGradient id="scope" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#b19ae2"/><stop offset="1" stop-color="#7862b1"/></linearGradient></defs>
+<g transform="translate(8,4)">
+  <path d="M44 24l28 -17 18 29 -28 17z" fill="url(#scope)"/>
+  <rect x="60" y="12" width="39" height="12" rx="5" transform="rotate(58 60 12)" fill="#d9c3fa"/>
+  <path d="M82 42l32 49 -21 14 -32 -49z" fill="#8d77c9"/>
+  <circle cx="64" cy="90" r="30" fill="none" stroke="#9b83d0" stroke-width="13"/>
+  <circle cx="64" cy="90" r="11" fill="#fa6277"/>
+  <path d="M24 130a71 71 0 0 0 124 -19" fill="none" stroke="#a48bd7" stroke-width="14" stroke-linecap="round"/>
+  <path d="M16 147h142" stroke="#c3b0ed" stroke-width="12" stroke-linecap="round"/>
+  <path d="M45 132h87" stroke="#7f6ba9" stroke-width="9" stroke-linecap="round"/>
+  <ellipse cx="120" cy="94" rx="36" ry="26" transform="rotate(-18 120 94)" fill="url(#blood)" stroke="#ffb1ba" stroke-width="2"/>
+  <ellipse cx="120" cy="94" rx="18" ry="9" transform="rotate(-18 120 94)" fill="#ac2c57" opacity=".65"/>
+  <circle cx="112" cy="90" r="4" fill="#e3d6ff"/><path d="M126 89a8 8 0 0 1 6 13" stroke="#efdfff" stroke-width="3" fill="none" stroke-linecap="round"/>
+  <circle cx="148" cy="47" r="7" fill="#fd5f75"/><circle cx="169" cy="61" r="5.5" fill="#a68ed7"/><circle cx="163" cy="35" r="5" fill="#fd5f75"/>
+  <path d="M148 47l21 14 -6 -26 -15 12" stroke="#a78cd0" stroke-width="2.3" fill="none"/>
+</g>
+<g font-family="Inter,Segoe UI,Arial,sans-serif" font-weight="750" letter-spacing="-3">
+<text x="207" y="111" font-size="80" fill="#f5f0fa">Malaria</text><text x="490" y="111" font-size="80" fill="#fa5c73">Scope</text>
+</g>
+</svg>
