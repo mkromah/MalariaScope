@@ -13,6 +13,14 @@
 
 This is a note for the next work session, not a completed experiment or a scheduled reminder.
 
+## Progress — 26 November 2026: source audit started
+
+- Official NIH/NLM README reviewed: 193 patients, 965 full-field thin-smear images; polygon (165 fields) and point (800 fields) annotations report parasitized, uninfected, and white-blood-cell categories. The NIH full dataset is approximately 690 MB; the separate provider license document is listed but its full terms remain to be checked.
+- Official Makerere Uganda datasheet reviewed: 4,000 field images total, 1,000 thin and 3,000 thick; JPEG images with YOLO-format text annotations; slide metadata is present for some images. No recommended splits are supplied in the datasheet.
+- Harvard Dataverse DOI verified from the Makerere datasheet: `doi:10.7910/DVN/VEADSE`. File-level access, exact class IDs, completeness of uninfected RBC labels, and split grouping remain to be checked inside Kaggle.
+- A short **metadata-only, two-dataset audit notebook** has been created: [MalariaScope_Uncropped_Audit.ipynb](../notebooks/MalariaScope_Uncropped_Audit.ipynb). It does not retrain the classifier or automatically download large image archives.
+- The original cropped-cell results remain unchanged. No stronger-reliability claim has been demonstrated.
+
 ## Research question
 
 Can the existing cell-image classifier retain useful performance when cells come from realistic, *uncropped thin-smear microscopy fields*, and can a separate cell detector locate candidate cells accurately enough for an end-to-end, uncertainty-aware pipeline?
